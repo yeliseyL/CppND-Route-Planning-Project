@@ -27,6 +27,25 @@ static std::optional<std::vector<std::byte>> ReadFile(const std::string &path)
     return std::move(contents);
 }
 
+void ReadInput(float &var, const std::string var_name)
+{
+    float value = 0.0;
+
+    std::cout << "Please enter value for <" + var_name + ">: ";
+    std::cin >> value;
+
+    while (std::cin.fail() || value < 0 || value > 100)
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Wrong input value (0 <= val <= 100). Please try again: ";
+        std::cin >> value;
+    }
+
+    var = value;
+}
+
+
 int main(int argc, const char **argv)
 {    
     std::string osm_data_file = "";
@@ -56,9 +75,12 @@ int main(int argc, const char **argv)
     // user input for these values using std::cin. Pass the user input to the
     // RoutePlanner object below in place of 10, 10, 90, 90.
 
-    float start_x, start_y, end_x, end_y;
-    std::cout << "Enter start and end coordinates separated by spaces: ";
-    std::cin >> start_x >> start_y >> end_x >> end_y;
+    
+    float start_x = 0.0f, start_y = 0.0f, end_x = 0.0f, end_y = 0.0f;
+    ReadInput(start_x, "start_x");
+    ReadInput(start_y, "start_y");
+    ReadInput(end_x, "end_x");
+    ReadInput(end_y, "end_y");
 
     // Build Model.
     RouteModel model{osm_data};
