@@ -54,8 +54,8 @@ void RoutePlanner::AddNeighbors(RouteModel::Node *current_node) {
 
 bool Compare(RouteModel::Node* a, RouteModel::Node* b)
 {
-    int f1 = a->h_value + a->g_value;
-    int f2 = b->h_value + b->g_value;
+    float f1 = a->h_value + a->g_value;
+    float f2 = b->h_value + b->g_value;
     return f1 > f2;
 }
 
@@ -113,7 +113,7 @@ void RoutePlanner::AStarSearch() {
     // TODO: Implement your solution here.
     current_node = start_node;
     current_node->g_value = 0.0f;
-    current_node->h_value = CalculateHValue(current_node);
+    // current_node->h_value = CalculateHValue(current_node);
     open_list.push_back(current_node);
     current_node->visited = true;
 
